@@ -16,6 +16,8 @@ func init() {
 }
 
 func main() {
+	// 初始化 DB
+	bootstrap.SetupDB()
 
 	// 配置初始化，依赖命令行 --env 参数
 	var env string
