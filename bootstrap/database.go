@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"errors"
 	"fmt"
+	"gohub/app/models/user"
 	"gohub/pkg/config"
 	"gohub/pkg/database"
 	"time"
@@ -15,6 +16,8 @@ import (
 
 func SetupDB() {
 	var dbConfig gorm.Dialector
+
+	fmt.Println(config.Get("database.connection"))
 	switch config.Get("database.connection") {
 	case "mysql":
 		// 构建 DSN 信息
@@ -46,4 +49,7 @@ func SetupDB() {
 	database.SQLDB.SetMaxIdleConns(config.GetInt("database.mysql.max_idle_connections"))
 	// 设置每个链接的过期时间
 	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
+
+	database.DB.AutoMigrate(&user.User{})
+
 }
