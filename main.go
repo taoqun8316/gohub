@@ -31,6 +31,9 @@ func main() {
 	// 故此设置为 release，有特殊情况手动改为 debug 即可
 	gin.SetMode(gin.ReleaseMode)
 
+	// 初始化 Redis
+	bootstrap.SetupRedis()
+
 	// new 一个 Gin Engine 实例
 	router := gin.New()
 
